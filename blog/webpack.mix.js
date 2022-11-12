@@ -11,5 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
+
+ // npm run dev
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css')
+   // .styles(['public/bootstrap.min.css','font-awesome.min.css'],'public/css/all.css');
+
+mix.styles(['public/bootstrap.min.css','font-awesome.min.css'],'public/css/all.css');

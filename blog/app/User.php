@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+// if you want to verify email :
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -37,8 +38,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-
     public function post(){
         return $this->hasMany(Post::class);
     }
@@ -47,31 +46,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    public function country(){
-        return $this->belongsTo(Country::class);
-    }
-
     public function photos(){
-        return $this->morphOne('App\Photo','imageable');
+        return $this->morphMany(Photo::class,'imageable');
     }
 
-
-    // public function post(){
-    //     return $this->hasOne(Post::class);
-    //     // return $this->hasOne(Post::class,'user_id');
-    // }
-
-    // public function posts(){
-    //     return $this->hasMany(Post::class);
-    // }
-
-    // public function roles(){
-    //     return $this->belongsToMany(Role::class)->withPivot('created_at','updated_at');
-    //     // return $this->belongsToMany(Role::class,'role_user','role_id','user_id');
-    // }
-
-    // public function photos(){
-    //     return $this->morphOne(Photo::class,'imageable');
-    //     // return $this->morphMany(Photo::class,'imageable');
-    // }
 }

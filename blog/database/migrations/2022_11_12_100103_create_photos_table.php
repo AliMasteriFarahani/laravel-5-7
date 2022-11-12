@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPathToPhotosTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddPathToPhotosTable extends Migration
      */
     public function up()
     {
-        Schema::table('photos', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('imageable_id');
+            $table->string('imageable_type');
             $table->string('path');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddPathToPhotosTable extends Migration
      */
     public function down()
     {
-        Schema::table('photos', function (Blueprint $table) {
-            $table->dropColumn('path');
-        });
+        Schema::dropIfExists('photos');
     }
 }
